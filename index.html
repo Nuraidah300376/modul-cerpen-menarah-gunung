@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Pembelajaran Kendiri Cerpen: Menarah Gunung</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Flashcard Flip CSS */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        @media print {
+            aside, nav, button, .no-print {
+                display: none !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            .tab-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col md:flex-row antialiased">
+
+    <!-- Mobile Top Navigation Header -->
+    <header class="md:hidden bg-slate-900 text-white p-4 flex justify-between items-center sticky top-0 z-40 shadow-md">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-slate-900 font-bold text-lg shadow-md">
+                <i class="fa-solid fa-mountain"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-sm text-white leading-tight">Menarah Gunung</h1>
+                <p class="text-[10px] text-emerald-400 font-medium">STPM Kesusasteraan Melayu</p>
+            </div>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 rounded-lg bg-slate-800 text-slate-200 hover:text-white">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar-menu" class="hidden md:flex w-full md:w-72 bg-slate-900 text-slate-100 flex-shrink-0 flex-col justify-between shadow-2xl min-h-screen fixed md:relative z-30 transition-all">
+        <div>
+            <!-- Sidebar Header / Logo -->
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-500 flex items-center justify-center text-slate-900 font-extrabold text-xl shadow-lg shadow-emerald-500/20">
+                        <i class="fa-solid fa-mountain"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-base text-white leading-tight">Menarah Gunung</h1>
+                        <p class="text-xs text-emerald-400 font-semibold">Abdullah Tahir</p>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="mx-4 my-4 p-4 rounded-2xl bg-slate-800/80 border border-slate-700/60 shadow-inner">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">Profil Pelajar</span>
+                    <button onclick="switchTab('tab-00')" class="text-[10px] text-slate-400 hover:text-white underline">Kemaskini</button>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-sm font-semibold text-white truncate" id="side-student-name">Pelajar KMK</p>
+                    <p class="text-xs text-slate-400" id="side-student-class">Tingkatan 6</p>
+                </div>
+            </div>
+
+            <nav class="px-3 py-2 space-y-1 custom-scrollbar overflow-y-auto max-h-[calc(100vh-280px)]">
+                <button onclick="switchTab('tab-00')" id="nav-tab-00" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-white bg-slate-800">
+                    <i class="fa-solid fa-house w-5 text-emerald-400 text-sm"></i> Halaman Utama
+                </button>
+                <button onclick="switchTab('tab-01')" id="nav-tab-01" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">01</span> <i class="fa-solid fa-book-open w-5 text-cyan-400 text-sm"></i> Sinopsis Cerpen
+                </button>
+                <button onclick="switchTab('tab-02')" id="nav-tab-02" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">02</span> <i class="fa-solid fa-lightbulb w-5 text-amber-400 text-sm"></i> Tema & Persoalan
+                </button>
+                <button onclick="switchTab('tab-03')" id="nav-tab-03" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">03</span> <i class="fa-solid fa-users w-5 text-indigo-400 text-sm"></i> Watak & Perwatakan
+                </button>
+                <button onclick="switchTab('tab-04')" id="nav-tab-04" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">04</span> <i class="fa-solid fa-diagram-project w-5 text-rose-400 text-sm"></i> Unsur Plot
+                </button>
+                <button onclick="switchTab('tab-05')" id="nav-tab-05" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">05</span> <i class="fa-solid fa-compass w-5 text-teal-400 text-sm"></i> Analisis Latar
+                </button>
+                <button onclick="switchTab('tab-06')" id="nav-tab-06" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">06</span> <i class="fa-solid fa-hands-holding-circle w-5 text-violet-400 text-sm"></i> Amanat & Pengajaran
+                </button>
+                <button onclick="switchTab('tab-07')" id="nav-tab-07" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">07</span> <i class="fa-solid fa-pen-ruler w-5 text-orange-400 text-sm"></i> Aktiviti Kendiri
+                </button>
+                <button onclick="switchTab('tab-08')" id="nav-tab-08" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">08</span> <i class="fa-solid fa-circle-question w-5 text-sky-400 text-sm"></i> Kuiz Pengukuhan
+                </button>
+                <button onclick="switchTab('tab-09')" id="nav-tab-09" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <span class="w-5 text-[10px] text-slate-500 font-extrabold">09</span> <i class="fa-solid fa-trophy w-5 text-yellow-400 text-sm"></i> Pencapaian Saya
+                </button>
+            </nav>
+        </div>
+
+        <!-- Sidebar Progress Footer -->
+        <div class="p-4 border-t border-slate-800 bg-slate-950/60">
+            <div class="flex justify-between items-center mb-1 text-xs text-slate-400">
+                <span>Kemajuan Modul</span>
+                <span id="overall-progress-text" class="font-extrabold text-emerald-400">11%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div id="overall-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500 w-[11%]"></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Display Workspace -->
+    <main class="flex-1 bg-slate-50 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-screen">
+        <div class="max-w-5xl mx-auto space-y-6">
+
+            <!-- TAB 00: HALAMAN UTAMA -->
+            <section id="tab-00" class="tab-content transition-all duration-300">
+                <!-- Hero Section -->
+                <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden border border-slate-800">
+                    <div class="absolute -right-12 -bottom-12 opacity-10 text-[180px] pointer-events-none">
+                        <i class="fa-solid fa-mountain"></i>
+                    </div>
+                    <div class="relative z-10 max-w-2xl space-y-4">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-semibold tracking-wide">
+                            <i class="fa-solid fa-graduation-cap"></i> Modul Kendiri STPM Tingkatan 6
+                        </span>
+                        <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                            Pembelajaran Kendiri Cerpen:<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Menarah Gunung</span>
+                        </h1>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            Selamat datang ke modul interaktif Kesusasteraan Melayu Komunikatif (KMK). Modul ini menyediakan nota komprehensif, carta alir, aktiviti kad imbasan, soalan KBAT, dan kuiz pengukuhan untuk persediaan cemerlang anda.
+                        </p>
+                    </div>
+
+                    <!-- Student Info Input Card -->
+                    <div class="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">Nama Pelajar</label>
+                            <input type="text" id="input-student-name" placeholder="Masukkan nama penuh anda" class="w-full px-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-xs sm:text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">Kelas / Tingkatan</label>
+                            <input type="text" id="input-student-class" placeholder="Contoh: 6 Gemilang" class="w-full px-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-xs sm:text-sm transition-all">
+                        </div>
+                        <div class="sm:col-span-2 pt-2">
+                            <button onclick="saveStudentProfile()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Profil & Mula Pembelajaran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Quick Access Menu Grid -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-grid-2 text-emerald-600"></i> Menu Pembelajaran Utama
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div onclick="switchTab('tab-01')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-cyan-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 font-bold text-xs flex items-center justify-center">01</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-cyan-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Sinopsis Cerpen</h3>
+                            <p class="text-xs text-slate-500">Rangkuman cerita mengikut fasa ringkas & jelas.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-02')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 font-bold text-xs flex items-center justify-center">02</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-amber-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Tema & Persoalan</h3>
+                            <p class="text-xs text-slate-500">Tema utama & 6 persoalan penting bersama bukti.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-03')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-indigo-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center">03</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Watak & Perwatakan</h3>
+                            <p class="text-xs text-slate-500">Pemuda universiti, Tuk Ketua LPPS & penduduk.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-04')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-rose-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center">04</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-rose-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Unsur Plot</h3>
+                            <p class="text-xs text-slate-500">Garis masa visual & perkembangan konflik cerita.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-05')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-teal-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center">05</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-teal-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Analisis Latar</h3>
+                            <p class="text-xs text-slate-500">Latar tempat, masa, dan masyarakat beserta bukti.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-06')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-violet-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-violet-100 text-violet-700 font-bold text-xs flex items-center justify-center">06</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-violet-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Amanat & Pengajaran</h3>
+                            <p class="text-xs text-slate-500">Nilai pengajaran dan relevansi ikhtibar hidup.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-07')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-orange-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center">07</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-orange-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Aktiviti Kendiri</h3>
+                            <p class="text-xs text-slate-500">Kad imbasan interaktif & latihan pemikiran KBAT.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-08')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-sky-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-sky-100 text-sky-700 font-bold text-xs flex items-center justify-center">08</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-sky-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Kuiz Pengukuhan</h3>
+                            <p class="text-xs text-slate-500">10 soalan objektif interaktif beserta maklum balas.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-09')" class="group cursor-pointer bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-yellow-400 transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="w-8 h-8 rounded-xl bg-yellow-100 text-yellow-700 font-bold text-xs flex items-center justify-center">09</span>
+                                <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-yellow-600 group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-sm mb-1">Pencapaian Saya</h3>
+                            <p class="text-xs text-slate-500">Rekod kemajuan, markah kuiz & kad laporan cetak.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 01: SINOPSIS CERPEN -->
+            <section id="tab-01" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-700 font-extrabold text-sm flex items-center justify-center">01</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Sinopsis Ringkas</h2>
+                                <p class="text-xs text-slate-500">Rangkuman peristiwa mengikut alur penceritaan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chunked Synopsis Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Phase 1 -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-cyan-700 uppercase tracking-wider">
+                                <i class="fa-solid fa-1"></i> Pengenalan Pulau & Pembangunan
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Pulau Sumpahan terkenal dengan keindahan alam semula jadi dan legenda <strong>Gunung Catraya</strong> serta batu ular penunggunya. Pihak pemerintah dan <strong>Lembaga Pembangunan Pulau Sumpahan (LPPS)</strong> memajukan pulau ini secara pesat menjadi pusat pelancongan antarabangsa dan <em>free port</em>.
+                            </p>
+                        </div>
+
+                        <!-- Phase 2 -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-cyan-700 uppercase tracking-wider">
+                                <i class="fa-solid fa-2"></i> Peringatan & Kesusahan Penduduk
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Pembangunan yang tidak terkawal menyebabkan penduduk asal tersisih. Petani menjual tanah warisan akibat hasutan orang tengah, manakala nelayan kehilangan perkampungan untuk pembinaan hotel lima bintang dan terpaksa menukar profesion.
+                            </p>
+                        </div>
+
+                        <!-- Phase 3 -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-cyan-700 uppercase tracking-wider">
+                                <i class="fa-solid fa-3"></i> Projek Menarah Gunung & Bencana
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Tuk Ketua LPPS mengilhamkan projek membina pusat peranginan di antara dua puncak Gunung Catraya. Kerja menarah gunung memusnahkan alam sekitar hingga hujan membawa <strong>banjir lumpur</strong> menimbus ribuan hektar sawah padi penduduk.
+                            </p>
+                        </div>
+
+                        <!-- Phase 4 -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-cyan-700 uppercase tracking-wider">
+                                <i class="fa-solid fa-4"></i> Kebangkitan & Bantahan Rakyat
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Seorang pemuda lulusan universiti memimpin petani dan nelayan mengadakan demonstrasi di hadapan bangunan LPPS. Mereka menolak wang pampasan dan menuntut projek dibatalkan serta tanah sawah dipulihkan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Quote Banner -->
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-900 to-slate-900 text-white flex items-start gap-4">
+                        <i class="fa-solid fa-quote-left text-2xl text-cyan-400 mt-1"></i>
+                        <div class="space-y-1">
+                            <p class="text-xs sm:text-sm font-medium italic text-slate-200">
+                                "Penduduk tidak lagi takut akan ancaman pihak berkuasa atau ketibaan Pasukan FRU, sebaliknya mereka yakin batu ular catraya di puncak gunung akan bangkit menyokong perjuangan mereka."
+                            </p>
+                            <span class="block text-[11px] font-bold text-cyan-300 uppercase tracking-wider">— Peleraian Cerpen Menarah Gunung</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 02: TEMA & PERSOALAN -->
+            <section id="tab-02" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 font-extrabold text-sm flex items-center justify-center">02</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Tema & Persoalan</h2>
+                                <p class="text-xs text-slate-500">Gagasan utama dan persoalan sampingan bersama bukti tekstual</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Theme Box -->
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-400/30 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-3 py-1 rounded-md bg-amber-500 text-slate-900 font-extrabold text-[10px] uppercase tracking-wider">Tema Utama</span>
+                        </div>
+                        <p class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                            Pembangunan fizikal dan pelancongan yang tidak terkawal sehingga menjejaskan alam sekitar serta mengabaikan kebajikan dan kelangsungan hidup penduduk tempatan.
+                        </p>
+                    </div>
+
+                    <!-- 6 Issues Grid Cards -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Senarai Persoalan Utama (Klik untuk perincian):</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Persoalan 1 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">1. Pembangunan Pelancongan</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Kepesatan pembangunan industri pelancongan antarabangsa.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> LPPS memberi taraf <em>free port</em>, membina hotel 5 bintang, resort, padang golf, serta menganjurkan acara bertaraf antarabangsa untuk menarik pelancong asing.
+                                </div>
+                            </div>
+
+                            <!-- Persoalan 2 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">2. Pencemaran Alam Sekitar</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Pemusnahan ekosistem akibat pembangunan yang rakus.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> Kerja menarah Gunung Catraya menggunakan buldozer raksasa menyebabkan banjir lumpur menimbus ribuan hektar sawah padi penduduk kaki gunung.
+                                </div>
+                            </div>
+
+                            <!-- Persoalan 3 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">3. Pemilikan Tanah Warisan</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Kehilangan tanah warisan menjejaskan kelangsungan hidup.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> Penduduk menjual tanah kepada tauke luar, manakala perkampungan nelayan dan tanah khairat diambil untuk pembinaan hotel lima bintang.
+                                </div>
+                            </div>
+
+                            <!-- Persoalan 4 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">4. Penentangan Masyarakat</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Bantahan rakyat terhadap ketidakadilan pembangunan.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> Penduduk kampung dipimpin pemuda universiti mengadakan demonstrasi menuntut projek ditangkap dan tanah dipulihkan, bukannya sekadar pampasan.
+                                </div>
+                            </div>
+
+                            <!-- Persoalan 5 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">5. Kerakusan Kapitalis</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Sikap mengaut keuntungan secara melampau oleh orang tengah.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> Orang tengah memujuk orang kampung menjual tanah, mengaut untung dalam jualan kereta, serta membantu kegiatan melarikan cukai.
+                                </div>
+                            </div>
+
+                            <!-- Persoalan 6 -->
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-all space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">6. Sikap Mementingkan Diri</span>
+                                </div>
+                                <h4 class="text-xs font-semibold text-slate-800">Pemimpin yang mendahulukan impian peribadi dan nama.</h4>
+                                <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                    <strong class="text-amber-800">Bukti:</strong> Tuk Ketua LPPS meneruskan projek bina pusat peranginan di puncak gunung demi sanjungan, walaupun merosakkan punca rezeki petani.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 03: WATAK & PERWATAKAN -->
+            <section id="tab-03" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 font-extrabold text-sm flex items-center justify-center">03</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Watak & Perwatakan</h2>
+                                <p class="text-xs text-slate-500">Analisis perwatakan watak utama dan watak sampingan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Watak Utama Card -->
+                    <div class="p-6 rounded-2xl bg-indigo-50/60 border border-indigo-200/80 space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-indigo-600/20">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-indigo-950">Pemuda Desa Lulusan Universiti</h3>
+                                <p class="text-xs text-indigo-600 font-semibold uppercase tracking-wider">Watak Utama (Protagonis)</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3.5 rounded-xl bg-white border border-indigo-100 space-y-1">
+                                <strong class="text-indigo-800 font-bold">1. Berpendidikan & Berilmu Tinggi:</strong>
+                                <p class="text-slate-600">Tamat universiti dan menulis artikel di akhbar tempatan bagi menyedarkan masyarakat tentang kesan buruk pembangunan tanpa kawalan.</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-white border border-indigo-100 space-y-1">
+                                <strong class="text-indigo-800 font-bold">2. Berani & Berjiwa Pemimpin:</strong>
+                                <p class="text-slate-600">Berani memimpin ribuan penduduk kampung, petani, dan nelayan berhimpun di hadapan pintu pagar LPPS menuntut hak mereka.</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-white border border-indigo-100 space-y-1">
+                                <strong class="text-indigo-800 font-bold">3. Berpandangan Jauh & Rasional:</strong>
+                                <p class="text-slate-600">Menyedari wang pampasan tidak membawa nilai jika tiada tanah ganti untuk diterokai demi kelangsungan hidup anak cucu.</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-white border border-indigo-100 space-y-1">
+                                <strong class="text-indigo-800 font-bold">4. Teguh Pendirian:</strong>
+                                <p class="text-slate-600">Menolak rundingan tawar-menawar wang oleh pihak LPPS dan bertegas mahukan pemulihan tanah sawah yang rosak.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Watak Sampingan Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Tuk Ketua LPPS -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-base">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Tuk Ketua LPPS</h4>
+                                    <p class="text-[10px] text-slate-500 uppercase font-semibold">Watak Sampingan (Antagonis)</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Dahagakan Pujian:</strong> Merancang projek peranginan di celah dua puncak gunung demi kepuasan peribadi dan mengejar nama.
+                                </li>
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Degil & Keras Kepala:</strong> Meneruskan projek menarah gunung walaupun mengetahui kesan buruknya kepada petani.
+                                </li>
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Penakut / Gelabah:</strong> Menjadi sangat panik dan terpinga-pinga apabila dihadapkan dengan demonstrasi penduduk kampung.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Penduduk Kampung -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-base">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Penduduk Kampung / Petani</h4>
+                                    <p class="text-[10px] text-slate-500 uppercase font-semibold">Watak Sampingan Kolektif</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Rajin & Gigih:</strong> Gigih menanam padi dan sayur di kaki gunung untuk menyara kehidupan keluarga.
+                                </li>
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Bersatu Padu:</strong> Bergandeng bahu bersama pemuda universiti berhimpun membela nasib dan masa depan tanah air mereka.
+                                </li>
+                                <li class="p-2.5 rounded-lg bg-white border border-slate-200">
+                                    <strong class="text-slate-800">Cinta akan Tanah Warisan:</strong> Berani mempertahankan tanah milik mereka daripada terus dicemari dan dicuri.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 04: UNSUR PLOT -->
+            <section id="tab-04" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-700 font-extrabold text-sm flex items-center justify-center">04</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Unsur Plot & Carta Alir</h2>
+                                <p class="text-xs text-slate-500">Perkembangan alur penceritaan dari awal hingga akhir</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Visual Timeline -->
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-rose-200 space-y-6 my-4">
+                        <!-- Permulaan -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px] font-bold shadow-md">1</div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-800 font-bold text-[10px] uppercase">Permulaan (Eksposisi)</span>
+                                <h4 class="font-bold text-slate-900 text-sm">Pengenalan Pulau Sumpahan & Legenda Gunung</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Pengarang menceritakan tentang Pulau Sumpahan yang terkenal dengan legenda Gunung Catraya dan ular bertukar batu. Pihak LPPS membangunkan pulau secara pesat menjadi pusat pelancongan antarabangsa.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Perkembangan -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold shadow-md">2</div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 font-bold text-[10px] uppercase">Perkembangan</span>
+                                <h4 class="font-bold text-slate-900 text-sm">Tersisihnya Penduduk Asal & Cadangan Projek</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Penduduk asal Melayu menjadi minoriti dan terpaksa menukar profesion. Tuk Ketua LPPS mendapat idea sewaktu menaiki bot eksekutif untuk membina pusat peranginan di celah dua puncak Gunung Catraya.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Perumitan -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-[10px] font-bold shadow-md">3</div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-orange-100 text-orange-800 font-bold text-[10px] uppercase">Perumitan / Konflik</span>
+                                <h4 class="font-bold text-slate-900 text-sm">Menarah Gunung & Banjir Lumpur</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Buldozer mula menarah gunung secara rakus. Apabila hujan petang turun, lumpur dari puncak menimbus ribuan hektar tanah sawah padi penduduk kaki gunung hingga merosakkan mata pencarian mereka.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Klimaks -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] font-bold shadow-md">4</div>
+                            <div class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-rose-600 text-white font-bold text-[10px] uppercase">Klimaks</span>
+                                <h4 class="font-bold text-rose-950 text-sm">Demonstrasi Besar-Besaran Rakyat</h4>
+                                <p class="text-xs text-slate-700 leading-relaxed">
+                                    Pemuda universiti memimpin ribuan penduduk berhimpun di luar pintu bangunan LPPS. Mereka melaungkan bantahan, menolak pampasan wang ringgit, dan menuntut pemulihan tanah. Tuk Ketua LPPS menjadi panik dan terpinga-pinga.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Peleraian -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold shadow-md">5</div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-bold text-[10px] uppercase">Peleraian</span>
+                                <h4 class="font-bold text-slate-900 text-sm">Keberanian Rakyat & Keyakinan Membela Hak</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Penduduk kampung tidak takut akan ancaman kedatangan Unit FRU dari tanah besar. Mereka yakin dan meyakini batu ular catraya di puncak gunung akan "hidup semula" menyokong perjuangan membela tanah air mereka.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 05: ANALISIS LATAR -->
+            <section id="tab-05" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-700 font-extrabold text-sm flex items-center justify-center">05</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Analisis Latar</h2>
+                                <p class="text-xs text-slate-500">Latar Tempat, Masa, dan Masyarakat beserta perincian</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Latar Tempat -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center gap-2 text-teal-700 font-bold text-sm">
+                                <i class="fa-solid fa-location-dot"></i> Latar Tempat
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Gunung Catraya / Puncak:</strong>
+                                    Tempat projek peranginan dibina hingga ditarah oleh buldozer.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Pulau Sumpahan:</strong>
+                                    Pulau pelancongan antarabangsa yang dimajukan secara pesat.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Bangunan LPPS:</strong>
+                                    Pintu Pagar utama lokasi ribuan penduduk kampung berhimpun mengadakan demonstrasi.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Latar Masa -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center gap-2 text-teal-700 font-bold text-sm">
+                                <i class="fa-solid fa-clock"></i> Latar Masa
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Waktu Senja:</strong>
+                                    Tuk Ketua LPPS menaiki bot eksekutif bersama isteri muda lalu tercetus idea projek.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Waktu Petang:</strong>
+                                    Hujan turun petang menyebabkan lumpur turun menimbus kawasan sawah padi.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Beribu-ribu Tahun Lalu:</strong>
+                                    Zaman legenda ular catraya dipercayai mati dan bertukar menjadi batu.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Latar Masyarakat -->
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center gap-2 text-teal-700 font-bold text-sm">
+                                <i class="fa-solid fa-users"></i> Latar Masyarakat
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Masyarakat Petani & Nelayan:</strong>
+                                    Penduduk asal yang bergantung pada hasil pertanian dan laut.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Masyarakat Berilmu Tinggi:</strong>
+                                    Golongan pemuda universiti yang berilmu dan berani mempertahankan hak rakyat.
+                                </li>
+                                <li class="p-3 rounded-xl bg-white border border-slate-200">
+                                    <strong class="text-slate-800 block mb-0.5">Masyarakat Kapitalis / Penguasa:</strong>
+                                    Golongan yang hanya mementingkan keuntungan dan nama peribadi.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 06: AMANAT & PENGAJARAN -->
+            <section id="tab-06" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-violet-100 text-violet-700 font-extrabold text-sm flex items-center justify-center">06</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Amanat & Pengajaran</h2>
+                                <p class="text-xs text-slate-500">Nilai murni dan pengajaran ikhtibar daripada cerpen</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-5 rounded-2xl bg-violet-50/60 border border-violet-200 space-y-2">
+                            <span class="px-2.5 py-0.5 rounded-md bg-violet-200 text-violet-900 font-bold text-[10px] uppercase">Pengajaran 1</span>
+                            <h3 class="font-bold text-slate-900 text-xs sm:text-sm">Kita hendaklah memelihara alam sekitar daripada kemusnahan.</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <strong>Peristiwa:</strong> Tindakan menarah Gunung Catraya memusnahkan ekosistem dan menyebabkan lumpur merosakkan tanah pertanian rakyat.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-violet-50/60 border border-violet-200 space-y-2">
+                            <span class="px-2.5 py-0.5 rounded-md bg-violet-200 text-violet-900 font-bold text-[10px] uppercase">Pengajaran 2</span>
+                            <h3 class="font-bold text-slate-900 text-xs sm:text-sm">Kita mesti mempertahankan tanah warisan demi generasi akan datang.</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <strong>Peristiwa:</strong> Penduduk kampung dipimpin pemuda universiti enggan menerima pampasan wang dan menuntut tanah sawah dipulihkan.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-violet-50/60 border border-violet-200 space-y-2">
+                            <span class="px-2.5 py-0.5 rounded-md bg-violet-200 text-violet-900 font-bold text-[10px] uppercase">Pengajaran 3</span>
+                            <h3 class="font-bold text-slate-900 text-xs sm:text-sm">Pemimpin hendaklah prihatin akan kebajikan rakyat bawahan.</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <strong>Peristiwa:</strong> Tuk Ketua LPPS sepatutnya mendengar rintihan penduduk dan bukannya mengutamakan nama serta impian peribadinya.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-violet-50/60 border border-violet-200 space-y-2">
+                            <span class="px-2.5 py-0.5 rounded-md bg-violet-200 text-violet-900 font-bold text-[10px] uppercase">Pengajaran 4</span>
+                            <h3 class="font-bold text-slate-900 text-xs sm:text-sm">Kita hendaklah bersatu padu menentang ketidakadilan.</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <strong>Peristiwa:</strong> Penduduk kampung, petani, dan nelayan bersatu padu berhimpun di luar bangunan LPPS untuk menyuarakan bantahan bersama.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 07: AKTIVITI KENDIRI -->
+            <section id="tab-07" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-700 font-extrabold text-sm flex items-center justify-center">07</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Aktiviti Kendiri & KBAT</h2>
+                                <p class="text-xs text-slate-500">Kad Imbasan Interaktif dan Pemikiran Kritikal STPM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flashcards Section -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-clone text-orange-500"></i> Kad Imbasan Ulang Kaji (Klik kad untuk lihat jawapan):
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <!-- Card 1 -->
+                            <div class="perspective-1000 h-44 cursor-pointer group" onclick="flipCard(this)">
+                                <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d shadow-sm rounded-2xl border border-orange-200 bg-orange-50/50 p-5 flex flex-col justify-between">
+                                    <div class="flashcard-front space-y-2">
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-200 text-orange-900 uppercase">Kad 1 - Legenda</span>
+                                        <p class="text-xs font-bold text-slate-800">Apakah legenda yang dikaitkan dengan Gunung Catraya?</p>
+                                    </div>
+                                    <p class="text-[10px] text-orange-600 font-bold flex items-center gap-1"><i class="fa-solid fa-rotate"></i> Klik untuk pusing</p>
+                                    <div class="flashcard-back absolute inset-0 w-full h-full bg-slate-900 text-white rounded-2xl p-5 rotate-y-180 backface-hidden flex flex-col justify-between">
+                                        <p class="text-xs text-slate-200 leading-relaxed">Legenda ular catraya yang dikatakan mati akibat sakit tua lalu bertukar menjadi batu di puncak gunung.</p>
+                                        <span class="text-[10px] text-emerald-400 font-bold">✓ Jawapan Ringkas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="perspective-1000 h-44 cursor-pointer group" onclick="flipCard(this)">
+                                <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d shadow-sm rounded-2xl border border-orange-200 bg-orange-50/50 p-5 flex flex-col justify-between">
+                                    <div class="flashcard-front space-y-2">
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-200 text-orange-900 uppercase">Kad 2 - Pemuda</span>
+                                        <p class="text-xs font-bold text-slate-800">Mengapakah pemuda universiti menolak wang pampasan LPPS?</p>
+                                    </div>
+                                    <p class="text-[10px] text-orange-600 font-bold flex items-center gap-1"><i class="fa-solid fa-rotate"></i> Klik untuk pusing</p>
+                                    <div class="flashcard-back absolute inset-0 w-full h-full bg-slate-900 text-white rounded-2xl p-5 rotate-y-180 backface-hidden flex flex-col justify-between">
+                                        <p class="text-xs text-slate-200 leading-relaxed">Kerana wang pampasan bersifat sementara, manakala tanah merupakan punca rezeki kekal generasi akan datang.</p>
+                                        <span class="text-[10px] text-emerald-400 font-bold">✓ Jawapan Ringkas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="perspective-1000 h-44 cursor-pointer group" onclick="flipCard(this)">
+                                <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d shadow-sm rounded-2xl border border-orange-200 bg-orange-50/50 p-5 flex flex-col justify-between">
+                                    <div class="flashcard-front space-y-2">
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-200 text-orange-900 uppercase">Kad 3 - Bencana</span>
+                                        <p class="text-xs font-bold text-slate-800">Apakah kesan langsung kerja menarah gunung?</p>
+                                    </div>
+                                    <p class="text-[10px] text-orange-600 font-bold flex items-center gap-1"><i class="fa-solid fa-rotate"></i> Klik untuk pusing</p>
+                                    <div class="flashcard-back absolute inset-0 w-full h-full bg-slate-900 text-white rounded-2xl p-5 rotate-y-180 backface-hidden flex flex-col justify-between">
+                                        <p class="text-xs text-slate-200 leading-relaxed">Lereng gunung gondol dan hujan petang membawa banjir lumpur menimbus ribuan hektar sawah padi.</p>
+                                        <span class="text-[10px] text-emerald-400 font-bold">✓ Jawapan Ringkas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KBAT Questions Section -->
+                    <div class="space-y-4 pt-4 border-t border-slate-100">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-brain text-orange-500"></i> Latihan Pemikiran Kritikal (KBAT STPM):
+                        </h3>
+
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <span class="px-2.5 py-0.5 rounded-md bg-orange-500 text-white font-bold text-[10px] uppercase">Soalan KBAT 1</span>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">
+                                Sekiranya anda seorang pemimpin di Pulau Sumpahan, bagaimanakah anda mengimbangi antara pembangunan pelancongan dengan pemeliharaan alam sekitar?
+                            </h4>
+                            <button onclick="toggleAnswer('ans-1')" class="px-4 py-2 rounded-xl bg-orange-100 hover:bg-orange-200 text-orange-900 font-bold text-xs transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-eye"></i> Papar Cadangan Jawapan
+                            </button>
+                            <div id="ans-1" class="hidden p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                                <strong>Cadangan Jawapan STPM:</strong> Saya akan mewajibkan Kajian Penilaian Impak Alam Sekitar (EIA) yang ketat sebelum sesuatu projek diluluskan, melibatkan wakil penduduk tempatan dalam proses pembuatan keputusan, menetapkan zon pemeliharaan alam sekitar yang dilarang untuk sebarang pembangunan fizikal, serta menyediakan latihan kemahiran moden kepada penduduk tempatan.
+                            </div>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <span class="px-2.5 py-0.5 rounded-md bg-orange-500 text-white font-bold text-[10px] uppercase">Soalan KBAT 2</span>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">
+                                Mengapakah sikap mudah terpedaya dengan tawaran wang pampasan jangka pendek berbahaya kepada komuniti luar bandar?
+                            </h4>
+                            <button onclick="toggleAnswer('ans-2')" class="px-4 py-2 rounded-xl bg-orange-100 hover:bg-orange-200 text-orange-900 font-bold text-xs transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-eye"></i> Papar Cadangan Jawapan
+                            </button>
+                            <div id="ans-2" class="hidden p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                                <strong>Cadangan Jawapan STPM:</strong> Wang pampasan bersifat liabiliti yang cepat habis jika tidak diuruskan dengan ilmu kewangan yang betul, seperti contoh petani yang menghabiskannya dengan membelikan kereta anak-anak. Akhirnya, mereka kehilangan aset pengeluaran kekal (tanah) dan terbelenggu dalam kemiskinan tegar jangka panjang.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 08: KUIZ PENGUKUHAN -->
+            <section id="tab-08" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4 flex-wrap gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 font-extrabold text-sm flex items-center justify-center">08</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Kuiz Pengukuhan Interaktif</h2>
+                                <p class="text-xs text-slate-500">10 soalan pilihan ganda untuk menguji kefahaman anda</p>
+                            </div>
+                        </div>
+                        <span id="quiz-status-badge" class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 font-bold text-xs">Belum Diduduki</span>
+                    </div>
+
+                    <!-- Quiz Questions Container -->
+                    <div id="quiz-container" class="space-y-6">
+                        <!-- Questions injected via JS -->
+                    </div>
+
+                    <!-- Quiz Submit Actions -->
+                    <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <p class="text-xs text-slate-500">*Pastikan anda menjawab semua soalan sebelum menekan butang hantar.</p>
+                        <button onclick="submitQuiz()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-sky-600/20 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Hantar Jawapan Kuiz
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 09: PENCAPAIAN SAYA -->
+            <section id="tab-09" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-yellow-100 text-yellow-700 font-extrabold text-sm flex items-center justify-center">09</span>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Dashboard Pencapaian Saya</h2>
+                                <p class="text-xs text-slate-500">Rumusan markah, status kemajuan modul dan kad laporan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Score Dashboard Overview Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Pembelajaran</span>
+                            <h3 id="report-status" class="text-2xl font-extrabold text-emerald-400">Dalam Proses</h3>
+                            <p class="text-[11px] text-slate-400">Kemajuan modul semasa</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Markah Kuiz</span>
+                            <h3 id="report-score" class="text-2xl font-extrabold text-yellow-400">- / 100</h3>
+                            <p id="report-score-text" class="text-[11px] text-slate-400">Belum menduduki kuiz</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gred Pencapaian</span>
+                            <h3 id="report-grade" class="text-2xl font-extrabold text-cyan-400">-</h3>
+                            <p class="text-[11px] text-slate-400">Tahap penguasaan cerpen</p>
+                        </div>
+                    </div>
+
+                    <!-- Student Printable Report Card -->
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm sm:text-base">Kad Laporan Kendiri Pelajar</h3>
+                                <p class="text-xs text-slate-500">STPM Kesusasteraan Melayu Komunikatif (KMK)</p>
+                            </div>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">Rasmi</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <span class="text-slate-400 font-semibold block text-[10px] uppercase">Nama Pelajar</span>
+                                <strong id="report-student-name" class="text-slate-900 text-sm">Pelajar KMK</strong>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <span class="text-slate-400 font-semibold block text-[10px] uppercase">Tingkatan / Kelas</span>
+                                <strong id="report-student-class" class="text-slate-900 text-sm">Tingkatan 6</strong>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <span class="text-slate-400 font-semibold block text-[10px] uppercase">Tajuk Cerpen</span>
+                                <strong class="text-slate-900">Menarah Gunung (Abdullah Tahir)</strong>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <span class="text-slate-400 font-semibold block text-[10px] uppercase">Tarikh Kemaskini</span>
+                                <strong id="report-date" class="text-slate-900">-</strong>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 no-print">
+                            <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-print"></i> Cetak / Simpan Kad Laporan (PDF)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Custom Modal Dialog (Replaces alert/confirm) -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="flex items-center gap-3">
+                <div id="modal-icon-bg" class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+                    <i id="modal-icon" class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 id="modal-title" class="font-bold text-slate-900 text-base">Maklumat</h3>
+            </div>
+            <p id="modal-message" class="text-xs text-slate-600 leading-relaxed"></p>
+            <div class="flex justify-end gap-2 pt-2">
+                <button id="modal-cancel-btn" onclick="closeModal()" class="hidden px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold text-xs transition-all">Batal</button>
+                <button id="modal-confirm-btn" onclick="confirmModalAction()" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold text-xs transition-all">Faham</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global State
+        const state = {
+            studentName: "Pelajar KMK",
+            studentClass: "Tingkatan 6",
+            visitedTabs: new Set(['tab-00']),
+            quizAnswers: {},
+            score: 0,
+            quizSubmitted: false,
+            pendingAction: null
+        };
+
+        // Quiz Questions Data (10 Questions)
+        const questionsData = [
+            {
+                id: 1,
+                question: "Apakah tema utama cerpen 'Menarah Gunung' karya Abdullah Tahir?",
+                options: [
+                    "A. Kegigihan pemuda universiti bertani secara separa moden di kaki gunung.",
+                    "B. Pembangunan fizikal dan pelancongan yang tidak terkawal sehingga menjejaskan alam sekitar serta kebajikan penduduk.",
+                    "C. Kehebatan legenda ular catraya yang bertukar menjadi batu di puncak gunung.",
+                    "D. Pertumbuhan ekonomi Pulau Sumpahan sebagai zon bebas cukai."
+                ],
+                correct: 1,
+                explanation: "Tema cerpen tertumpu pada pembangunan pelancongan fizikal pesat yang merosakkan alam sekitar dan mengabaikan kebajikan penduduk asal."
+            },
+            {
+                id: 2,
+                question: "Siapakah yang memimpin para petani dan nelayan mengadakan demonstrasi bantahan di hadapan bangunan LPPS?",
+                options: [
+                    "A. Tuk Ketua LPPS",
+                    "B. Pemuda desa lulusan universiti",
+                    "C. Pegawai Polis Daerah",
+                    "D. Tauke tanah dari luar"
+                ],
+                correct: 1,
+                explanation: "Pemuda desa lulusan universiti yang pulang bertani memimpin demonstrasi bantahan rakyat."
+            },
+            {
+                id: 3,
+                question: "Apakah yang mencetuskan idea Tuk Ketua LPPS untuk membina pusat peranginan di antara dua puncak gunung?",
+                options: [
+                    "A. Kajian perancang bandar antarabangsa.",
+                    "B. Desakan pelabur luar negara.",
+                    "C. Pemerhatiannya waktu senja semasa menaiki bot eksekutif peribadi bersama isteri mudanya.",
+                    "D. Titah pihak istana tempatan."
+                ],
+                correct: 2,
+                explanation: "Idea tersebut timbul secara spontan sewaktu Tuk Ketua bersiaran waktu senja di atas bot eksekutif peribadi bersama isteri mudanya."
+            },
+            {
+                id: 4,
+                question: "Apakah bencana alam yang menimpa kawasan sawah padi akibat kerja-kerja menarah Gunung Catraya?",
+                options: [
+                    "A. Kebakaran hutan lereng gunung.",
+                    "B. Banjir lumpur menimbus ribuan hektar tanah sawah apabila hujan petang.",
+                    "C. Serangan haiwan liar dari hutan.",
+                    "D. Tanah runtuh yang merobohkan seluruh jambatan pulau."
+                ],
+                correct: 1,
+                explanation: "Tindakan menarah gunung menyebabkan lereng gondol dan hujan petang membawa lumpur menimbus sawah padi."
+            },
+            {
+                id: 5,
+                question: "Mengapakah penduduk kampung bertegas menolak pampasan wang ringgit yang ditawarkan oleh LPPS?",
+                options: [
+                    "A. Kerana jumlah pampasan terlalu kecil.",
+                    "B. Kerana tanah merupakan satu-satunya aset warisan untuk menyambung hidup anak cucu mereka.",
+                    "C. Kerana mereka mahu berpindah ke bandar besar.",
+                    "D. Kerana mereka mahukan saham syarikat hotel."
+                ],
+                correct: 1,
+                explanation: "Penduduk menyedari wang pampasan bersifat sementara, manakala tanah memberi rezeki kekal generasi akan datang."
+            },
+            {
+                id: 6,
+                question: "Apakah perubahan profesion yang dialami oleh para nelayan selepas perkampungan mereka diambil untuk projek hotel?",
+                options: [
+                    "A. Menjadi nelayan di pulau lain.",
+                    "B. Menjadi petani menanam padi dan sayur di tanah warisan saudara mereka.",
+                    "C. Menjadi pekerja pembersihan di hotel.",
+                    "D. Menjadi kelasi bot pelancong."
+                ],
+                correct: 1,
+                explanation: "Selepas dipindahkan jauh dari pantai, sebahagian nelayan beralih kerjaya menjadi petani di tanah saudara."
+            },
+            {
+                id: 7,
+                question: "Apakah peranan 'orang tengah' dalam ekonomi Pulau Sumpahan berdasarkan cerpen?",
+                options: [
+                    "A. Membantu petani mendapatkan baja percuma.",
+                    "B. Memujuk penduduk menjual tanah dan mengaut keuntungan perantara.",
+                    "C. Membina sekolah untuk anak tempatan.",
+                    "D. Mempertahankan hak warisan penduduk."
+                ],
+                correct: 1,
+                explanation: "Orang tengah menguasai kegiatan ekonomi dengan memujuk petani menjual tanah demi mengaut untung ringgit."
+            },
+            {
+                id: 8,
+                question: "Berdasarkan cerpen, dari manakah nama Gunung Catraya diperoleh?",
+                options: [
+                    "A. Nama seekor ular besar yang bertukar menjadi batu di puncak gunung.",
+                    "B. Nama seorang wira zaman silam.",
+                    "C. Nama kapal pedagang Arab.",
+                    "D. Nama raja yang membuka Pulau Sumpahan."
+                ],
+                correct: 0,
+                explanation: "Gunung Catraya dinamakan sempena legenda ular catraya besar yang dipercayai bertukar batu di puncak gunung."
+            },
+            {
+                id: 9,
+                question: "Bagaimanakah reaksi penduduk kampung terhadap gertakan kedatangan Unit FRU dari tanah besar?",
+                options: [
+                    "A. Mereka bersurai dengan cemas.",
+                    "B. Mereka tidak takut dan yakin batu ular catraya akan 'hidup semula' membela mereka.",
+                    "C. Mereka menyerah diri kepada pihak polis.",
+                    "D. Mereka bersembunyi di dalam hutan."
+                ],
+                correct: 1,
+                explanation: "Penduduk enggan berundur dan meyakini kebangkitan batu ular catraya menyokong perjuangan mereka."
+            },
+            {
+                id: 10,
+                question: "Apakah ikhtibar utama daripada peristiwa petani menjual lima relung tanah demi membeli kereta anak-anak?",
+                options: [
+                    "A. Kepentingan memodenkan kenderaan keluarga.",
+                    "B. Bahaya sikap terpedaya wang ringgit hingga mengabaikan aset kekal jangka panjang.",
+                    "C. Keperluan perkhidmatan pengangkutan awam.",
+                    "D. Kejayaan anak-anak di bandar."
+                ],
+                correct: 1,
+                explanation: "Peristiwa ini menunjukkan implikasi buruk menjual tanah warisan demi kemewahan sementara jangka pendek."
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            updateProgress();
+            
+            // Set today date on report
+            const today = new Date();
+            document.getElementById('report-date').textContent = today.toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
+        });
+
+        // Switch Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) targetTab.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'text-white');
+                btn.classList.add('text-slate-300');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-slate-800', 'text-white');
+                activeNav.classList.remove('text-slate-300');
+            }
+
+            state.visitedTabs.add(tabId);
+            updateProgress();
+
+            // Mobile menu auto close
+            const sidebar = document.getElementById('sidebar-menu');
+            if (!sidebar.classList.contains('hidden') && window.innerWidth < 768) {
+                sidebar.classList.add('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar-menu');
+            sidebar.classList.toggle('hidden');
+        }
+
+        // Save Profile Function
+        function saveStudentProfile() {
+            const nameInput = document.getElementById('input-student-name').value.trim();
+            const classInput = document.getElementById('input-student-class').value.trim();
+
+            if (nameInput) state.studentName = nameInput;
+            if (classInput) state.studentClass = classInput;
+
+            document.getElementById('side-student-name').textContent = state.studentName;
+            document.getElementById('side-student-class').textContent = state.studentClass;
+            document.getElementById('report-student-name').textContent = state.studentName;
+            document.getElementById('report-student-class').textContent = state.studentClass;
+
+            showModal('Profil Disimpan', 'Profil pelajar anda telah berjaya dikemaskini. Mari teruskan ke Sinopsis Cerpen!', 'success');
+            switchTab('tab-01');
+        }
+
+        // Render Quiz Questions
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = questionsData.map((q, idx) => `
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-lg bg-sky-600 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
+                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm pt-0.5">${q.question}</h3>
+                    </div>
+                    <div class="space-y-2 pl-0 sm:pl-10">
+                        ${q.options.map((opt, optIdx) => `
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-sky-50/60 transition-all text-xs text-slate-700">
+                                <input type="radio" name="question-${q.id}" value="${optIdx}" onchange="selectQuizOption(${q.id}, ${optIdx})" class="text-sky-600 focus:ring-sky-500">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="explanation-${q.id}" class="hidden pl-0 sm:pl-10 pt-2 text-xs">
+                        <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 leading-relaxed">
+                            <strong><i class="fa-solid fa-circle-info"></i> Maklum Balas:</strong> ${q.explanation}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Quiz Option Selection
+        function selectQuizOption(qId, optIdx) {
+            state.quizAnswers[qId] = optIdx;
+        }
+
+        // Submit Quiz Logic
+        function submitQuiz() {
+            const answeredCount = Object.keys(state.quizAnswers).length;
+            if (answeredCount < questionsData.length) {
+                showModal('Kuiz Belum Lengkap', `Anda baru menjawab ${answeredCount} daripada 10 soalan. Sila lengkapkan semua soalan!`, 'warning');
+                return;
+            }
+
+            let scoreCount = 0;
+            questionsData.forEach(q => {
+                const userAns = state.quizAnswers[q.id];
+                const expDiv = document.getElementById(`explanation-${q.id}`);
+                expDiv.classList.remove('hidden');
+
+                if (userAns === q.correct) {
+                    scoreCount += 10;
+                }
+            });
+
+            state.score = scoreCount;
+            state.quizSubmitted = true;
+
+            // Update Badges & Report Card
+            document.getElementById('quiz-status-badge').className = "px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs";
+            document.getElementById('quiz-status-badge').textContent = `Selesai (${state.score}/100)`;
+
+            document.getElementById('report-score').textContent = `${state.score} / 100`;
+            document.getElementById('report-score-text').textContent = "Markah Kuiz Pengukuhan";
+
+            let grade = 'D (Lulus)';
+            if (state.score >= 80) grade = 'A (Cemerlang)';
+            else if (state.score >= 70) grade = 'B (Kepujian)';
+            else if (state.score >= 60) grade = 'C (Baik)';
+
+            document.getElementById('report-grade').textContent = grade;
+
+            updateProgress();
+            showModal('Tahniah! Kuiz Selesai', `Markah Kuiz anda ialah ${state.score}/100. Gred: ${grade}. Buka Halaman Pencapaian untuk rekod penuh.`, 'success');
+            switchTab('tab-09');
+        }
+
+        // Flashcard Flip Logic
+        function flipCard(cardEl) {
+            const inner = cardEl.querySelector('.flashcard-inner');
+            inner.classList.toggle('rotate-y-180');
+        }
+
+        // Toggle KBAT Answer View
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        // Overall Module Progress Calculation
+        function updateProgress() {
+            const totalTabs = 9; // tab-01 to tab-09
+            const visited = state.visitedTabs.size;
+            let percent = Math.min(100, Math.round((visited / totalTabs) * 100));
+
+            document.getElementById('overall-progress-text').textContent = `${percent}%`;
+            document.getElementById('overall-progress-bar').style.width = `${percent}%`;
+
+            if (percent >= 100 && state.quizSubmitted) {
+                document.getElementById('report-status').textContent = "Selesai Sepenuhnya";
+            } else if (percent > 30) {
+                document.getElementById('report-status').textContent = "Aktif Belajar";
+            }
+        }
+
+        // Custom UI Modal Dialog
+        function showModal(title, message, type = 'info', onConfirm = null) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+
+            const iconBg = document.getElementById('modal-icon-bg');
+            const icon = document.getElementById('modal-icon');
+
+            if (type === 'success') {
+                iconBg.className = "w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg";
+                icon.className = "fa-solid fa-circle-check";
+            } else if (type === 'warning') {
+                iconBg.className = "w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg";
+                icon.className = "fa-solid fa-triangle-exclamation";
+            } else {
+                iconBg.className = "w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg";
+                icon.className = "fa-solid fa-circle-info";
+            }
+
+            state.pendingAction = onConfirm;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+            state.pendingAction = null;
+        }
+
+        function confirmModalAction() {
+            if (state.pendingAction) {
+                state.pendingAction();
+            }
+            closeModal();
+        }
+    </script>
+</body>
+</html>
